@@ -15,9 +15,9 @@
 
 	<repositories>
 		<repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/content/groups/public</url>
-        </repository>
+			<id>bukkit-repo</id>
+			<url>http://repo.bukkit.org/content/groups/public</url>
+		</repository>
 		<repository>
 			<id>vault-repo</id>
 			<url>http://ci.herocraftonline.com/plugin/repository/everything</url>
@@ -34,6 +34,11 @@
 			<groupId>net.milkbowl.vault</groupId>
 			<artifactId>Vault</artifactId>
 			<version>1.2.25-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.buddat.bungeesuite</groupId>
+			<artifactId>bungeesuitelib</artifactId>
+			<version>0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>

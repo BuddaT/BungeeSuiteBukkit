@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import net.buddat.bungeesuite.database.Database;
+import net.buddat.bungeesuite.database.DatabaseDependencyException;
 import net.milkbowl.vault.chat.Chat;
 
 import org.bukkit.Bukkit;
@@ -15,8 +17,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mcdimensions.bungeesuitebukkit.database.Database;
-import com.mcdimensions.bungeesuitebukkit.database.DatabaseDependencyException;
 import com.mcdimensions.bungeesuitebukkit.listeners.PluginMessengerListener;
 import com.mcdimensions.bungeesuitebukkit.listeners.PortalListener;
 import com.mcdimensions.bungeesuitebukkit.listeners.PlayerConnect;

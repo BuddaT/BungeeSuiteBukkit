@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import net.buddat.bungeesuite.database.Database;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -17,7 +19,6 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 
 import com.mcdimensions.bungeesuitebukkit.BungeeSuiteBukkit;
-import com.mcdimensions.bungeesuitebukkit.database.Database;
 import com.mcdimensions.bungeesuitebukkit.portals.FillType;
 import com.mcdimensions.bungeesuitebukkit.portals.Portal;
 import com.mcdimensions.bungeesuitebukkit.portals.Region;
