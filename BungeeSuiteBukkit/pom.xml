@@ -73,6 +73,7 @@
 							<artifactSet>
 								<includes>
 									<include>net.buddat.bungeesuite:bungeesuitelib</include>
+									<include>com.jolbox:bonecp</include>
 								</includes>
 							</artifactSet>
 						</configuration>
