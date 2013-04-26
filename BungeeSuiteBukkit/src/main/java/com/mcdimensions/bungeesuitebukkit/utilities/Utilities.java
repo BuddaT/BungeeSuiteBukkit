@@ -76,19 +76,17 @@ public class Utilities {
 	}
 
 	public void setMOTD() throws SQLException {
-		db.updateQuery("UPDATE BungeeServers SET MOTD='" + plugin.motd
-				+ "' WHERE ServerName = '" + Bukkit.getServerName() + "'");
+		db.update("UPDATE BungeeServers SET MOTD = ? WHERE ServerName = ?", plugin.motd, Bukkit.getServerName());
 	}
 
 	public void setOnline() throws SQLException {
-		db.updateQuery("UPDATE BungeeServers SET Online=TRUE, MaxPlayers = "
-				+ Bukkit.getMaxPlayers() + " WHERE ServerName = '"
-				+ Bukkit.getServerName() + "'");
+		db.update("UPDATE BungeeServers SET Online=TRUE, MaxPlayers = ? WHERE ServerName = ?",
+				Bukkit.getMaxPlayers(), Bukkit.getServerName());
 	}
 
 	public void setOffline() throws SQLException {
-		db.updateQuery("UPDATE BungeeServers SET Online=FALSE WHERE ServerName = '"
-				+ Bukkit.getServerName() + "'");
+		db.update("UPDATE BungeeServers SET Online=FALSE WHERE ServerName = ?",
+				Bukkit.getServerName());
 	}
 
 	public void updateAllPlayerSigns() {
@@ -133,9 +131,8 @@ public class Utilities {
 	}
 
 	public void updatePlayerCount(int i) throws SQLException {
-		db.updateQuery("UPDATE BungeeServers SET PlayersOnline="
-				+ (Bukkit.getOnlinePlayers().length + i)
-				+ " WHERE ServerName = '" + Bukkit.getServerName() + "'");
+		db.update("UPDATE BungeeServers SET PlayersOnline = ? WHERE ServerName = ?",
+				(Bukkit.getOnlinePlayers().length + i), Bukkit.getServerName());
 	}
 
 	public void createPortal(String name, String toServer, Region portalArea,
@@ -148,25 +145,9 @@ public class Utilities {
 		int MinX = portalArea.getFirst().getBlockX();
 		int MaxZ = portalArea.getEnd().getBlockZ();
 		int MinZ = portalArea.getFirst().getBlockZ();
-		db.updateQuery("INSERT INTO BungeePortals (Name, Server, ToServer, World, XMax, XMin, YMax, YMin, ZMax, ZMin) VALUES ('"
-				+ name
-				+ "','"
-				+ Bukkit.getServerName()
-				+ "', '"
-				+ toServer
-				+ "','"
-				+ portalArea.getEnd().getWorld().getName()
-				+ "', "
-				+ MaxX
-				+ ", "
-				+ MinX
-				+ ", "
-				+ MaxY
-				+ ", "
-				+ MinY
-				+ ", "
-				+ MaxZ
-				+ ", " + MinZ + " )");
+		db.update("INSERT INTO BungeePortals (Name, Server, ToServer, World, XMax, XMin, YMax, YMin, ZMax, ZMin) " +
+		"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		name, Bukkit.getServerName(), toServer, portalArea.getEnd().getWorld().getName(), MaxX, MinX, MaxY, MinY, MaxZ, MinZ);
 		plugin.portals.put(name, portal);
 	}
 
@@ -184,46 +165,32 @@ public class Utilities {
 		int MaxZ = portalArea.getEnd().getBlockZ();
 		int MinZ = portalArea.getFirst().getBlockZ();
 		if (toWarp == null) {
-			db.updateQuery("INSERT INTO BungeePortals (Name, Server, ToServer, World, XMax, XMin, YMax, YMin, ZMax, ZMin) VALUES ('"
-					+ name
-					+ "','"
-					+ Bukkit.getServerName()
-					+ "', '"
-					+ toServer
-					+ "','"
-					+ portalArea.getEnd().getWorld().getName()
-					+ "', "
-					+ MaxX
-					+ ", "
-					+ MinX
-					+ ", "
-					+ MaxY
-					+ ", "
-					+ MinY
-					+ ", "
-					+ MaxZ + ", " + MinZ + " )");
+			db.update("INSERT INTO BungeePortals (Name, Server, ToServer, World, XMax, XMin, YMax, YMin, ZMax, ZMin) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+					name,
+					Bukkit.getServerName(),
+					toServer,
+					portalArea.getEnd().getWorld().getName(),
+					MaxX,
+					MinX,
+					MaxY,
+					MinY,
+					MaxZ,
+					MinZ);
 		} else {
-			db.updateQuery("INSERT INTO BungeePortals (Name, Server, ToServer, Warp, World, XMax, XMin, YMax, YMin, ZMax, ZMin) VALUES ('"
-					+ name
-					+ "','"
-					+ Bukkit.getServerName()
-					+ "', '"
-					+ toServer
-					+ "', '"
-					+ toWarp
-					+ "','"
-					+ portalArea.getEnd().getWorld().getName()
-					+ "', "
-					+ MaxX
-					+ ", "
-					+ MinX
-					+ ", "
-					+ MaxY
-					+ ", "
-					+ MinY
-					+ ", "
-					+ MaxZ
-					+ ", " + MinZ + " )");
+			db.update("INSERT INTO BungeePortals (Name, Server, ToServer, Warp, World, XMax, XMin, YMax, YMin, ZMax, ZMin) " +
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+					name,
+					Bukkit.getServerName(),
+					toServer,
+					toWarp,
+					portalArea.getEnd().getWorld().getName(),
+					MaxX,
+					MinX,
+					MaxY,
+					MinY,
+					MaxZ,
+					MinZ);
 		}
 		plugin.portals.put(name, portal);
 	}
@@ -235,14 +202,12 @@ public class Utilities {
 	}
 
 	public void deletePortal(Portal portal) throws SQLException {
-		db.updateQuery("DELETE FROM BungeePortals WHERE Name = '"
-				+ portal.getTag() + "'");
+		db.update("DELETE FROM BungeePortals WHERE Name = ?", portal.getTag());
 		plugin.portals.remove(portal);
 	}
 
 	public void deletePortal(String portal) throws SQLException {
-		db.updateQuery("DELETE FROM BungeePortals WHERE Name = '" + portal
-				+ "'");
+		db.update("DELETE FROM BungeePortals WHERE Name = ?", portal);
 		plugin.portals.remove(getPortal(portal));
 	}
 
@@ -306,22 +271,17 @@ public class Utilities {
 
 	public void createWarp(String name, Location loc, boolean visible)
 			throws SQLException {
-		db.updateQuery("INSERT INTO BungeeWarps(Name,Server,World,X,Y,Z,Yaw,Pitch,Visible) VALUES('"
-				+ name
-				+ "','"
-				+ Bukkit.getServerName()
-				+ "', '"
-				+ loc.getWorld().getName()
-				+ "', "
-				+ loc.getX()
-				+ ", "
-				+ loc.getY()
-				+ ", "
-				+ loc.getZ()
-				+ ", "
-				+ loc.getYaw()
-				+ ", "
-				+ loc.getPitch() + ", " + visible + ")");
+		db.update("INSERT INTO BungeeWarps(Name,Server,World,X,Y,Z,Yaw,Pitch,Visible) " +
+			"VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",
+				name,
+				Bukkit.getServerName(),
+				loc.getWorld().getName(),
+				loc.getX(),
+				loc.getY(),
+				loc.getZ(),
+				loc.getYaw(),
+				loc.getPitch(),
+				visible);
 	}
 
 	public void warp(String name, Player player) throws IOException {
@@ -335,7 +295,7 @@ public class Utilities {
 	}
 
 	public void deleteWarp(String name) throws SQLException {
-		db.updateQuery("DELETE FROM BungeeWarps WHERE Name = '" + name + "'");
+		db.update("DELETE FROM BungeeWarps WHERE Name = ?", name);
 	}
 
 	public HashMap<String, ServerInfo> getServers() throws SQLException {
@@ -410,7 +370,7 @@ public class Utilities {
 							signs.add(sign);
 							plugin.AllSigns.add(sign);
 						} catch (ClassCastException e){
-							db.updateQuery("DELETE FROM BungeeSignLocations WHERE World = '"+res.getString("World")+"' AND X="+res.getInt("X")+" AND Y="+res.getInt("Y")+" AND Z = "+res.getInt("Z")+"");
+							db.update("DELETE FROM BungeeSignLocations WHERE World = ? AND X = ? AND Y = ? AND Z = ?", res.getString("World"), res.getInt("X"), res.getInt("Y"), res.getInt("Z"));
 						}
 					}
 				}
@@ -422,7 +382,7 @@ public class Utilities {
 
 	public void createSign(BungeeSign bs) throws SQLException {
 		Sign sign = bs.getSign();
-		db.updateQuery("INSERT INTO BungeeSignLocations (Type,Server,TargetServer,World,X,Y,Z) VALUES ('"+bs.getType()+"', '"+Bukkit.getServerName()+"','"+bs.getServer()+"', '"+sign.getWorld().getName()+"',"+sign.getX()+","+sign.getY()+","+sign.getZ()+")");
+		db.update("INSERT INTO BungeeSignLocations (Type,Server,TargetServer,World,X,Y,Z) VALUES (?, ?, ?, ?, ?, ?, ?)", bs.getType(), Bukkit.getServerName(), bs.getServer(), sign.getWorld().getName(), sign.getX(), sign.getY(), sign.getZ());
 	}
 
 }

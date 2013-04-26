@@ -336,17 +336,9 @@ public class SignHandler extends BukkitRunnable {
 
 	public void deleteSign(Sign sign) throws SQLException {
 		plugin.database
-				.updateQuery("DELETE FROM BungeeSignLocations WHERE World = '"
-						+ sign.getWorld().getName()
-						+ "' AND Server = '"
-						+ Bukkit.getServerName()
-						+ "' AND X="
-						+ sign.getX()
-						+ " AND Y="
-						+ sign.getY()
-						+ " AND Z="
-						+ sign.getZ()
-						+ "");
+				.update("DELETE FROM BungeeSignLocations WHERE World = ? AND Server = ? AND X = ? AND Y = ? AND Z = ?",
+						sign.getWorld().getName(), Bukkit.getServerName(),
+						sign.getX(), sign.getY(), sign.getZ());
 
 	}
 
