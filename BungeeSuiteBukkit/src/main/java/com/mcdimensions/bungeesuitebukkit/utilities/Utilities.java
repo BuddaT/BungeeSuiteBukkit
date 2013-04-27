@@ -219,8 +219,8 @@ public class Utilities {
 		HashMap<String, Portal> portals = new HashMap<String, Portal>();
 		try (Connection connection = db.getConnection();
 				ResultSet res = db
-				.sqlQuery("SELECT * FROM BungeePortals WHERE Server = '"
-						+ Bukkit.getServerName() + "'", connection)) {
+				.query(connection, "SELECT * FROM BungeePortals WHERE Server = '"
+						+ Bukkit.getServerName() + "'")) {
 			while (res.next()) {
 				String name = res.getString("Name");
 				FillType ft = FillType.getFillType("WATER");
@@ -301,7 +301,7 @@ public class Utilities {
 	public HashMap<String, ServerInfo> getServers() throws SQLException {
 		HashMap<String, ServerInfo> list = new HashMap<String, ServerInfo>();
 		try (Connection connection = db.getConnection();
-				ResultSet res = db.sqlQuery("SELECT * FROM BungeeServers", connection)) {
+				ResultSet res = db.query(connection, "SELECT * FROM BungeeServers")) {
 			while (res.next()) {
 				String name = res.getString("ServerName");
 				list.put(name,
@@ -316,7 +316,7 @@ public class Utilities {
 	public HashMap<String, String> getSignFormats() throws SQLException {
 		HashMap<String, String> list = new HashMap<String, String>();
 		try (Connection connection = db.getConnection();
-				ResultSet res = db.sqlQuery("SELECT * FROM BungeeSignFormats", connection)) {
+				ResultSet res = db.query(connection, "SELECT * FROM BungeeSignFormats")) {
 			while (res.next()) {
 				list.put("ColoredMOTD", res.getBoolean("ColoredMOTD") + "");
 				list.put("MOTDOnline", res.getString("MOTDOnline"));
@@ -339,8 +339,8 @@ public class Utilities {
 
 	public int getOnlinePlayerCount(String serverName) throws SQLException {
 		try (Connection connection = db.getConnection();
-				ResultSet res = db.sqlQuery("SELECT PlayersOnline FROM BungeeServers WHERE ServerName = '"
-								+ serverName + "'", connection);				) {
+				ResultSet res = db.query(connection, "SELECT PlayersOnline FROM BungeeServers WHERE ServerName = '"
+								+ serverName + "'");				) {
 			int players = 0;
 			while (res.next()) {
 				players = res.getInt("PlayersOnline");
@@ -357,9 +357,9 @@ public class Utilities {
 		try (Connection connection = db.getConnection()) {
 			for (String server : servers) {
 				ArrayList<BungeeSign> signs = new ArrayList<BungeeSign>();
-				try (ResultSet res = db.sqlQuery("SELECT * FROM BungeeSignLocations WHERE Server = '"
+				try (ResultSet res = db.query(connection, "SELECT * FROM BungeeSignLocations WHERE Server = '"
 								+ Bukkit.getServerName()
-								+ "' AND TargetServer = '"+server+"'", connection)) {
+								+ "' AND TargetServer = '"+server+"'")) {
 					while (res.next()) {
 						try{
 							BungeeSign sign = new BungeeSign(res.getString("Type"),

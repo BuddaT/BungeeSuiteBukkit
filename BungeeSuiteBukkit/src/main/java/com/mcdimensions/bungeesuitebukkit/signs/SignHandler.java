@@ -309,7 +309,8 @@ public class SignHandler extends BukkitRunnable {
 																// false
 		Connection connection = plugin.database.getConnection();
 		ResultSet res = plugin.database
-				.sqlQuery("SELECT TargetServer FROM BungeeSignLocations WHERE World = '"
+				.query(connection,
+						"SELECT TargetServer FROM BungeeSignLocations WHERE World = '"
 						+ sign.getWorld().getName()
 						+ "' AND Server = '"
 						+ Bukkit.getServerName()
@@ -319,8 +320,7 @@ public class SignHandler extends BukkitRunnable {
 						+ sign.getY()
 						+ " AND Z="
 						+ sign.getZ()
-						+ "",
-						connection);
+						+ "");
 		String targetServer = null;
 		while (res.next()) {
 			try {
