@@ -9,6 +9,7 @@ import java.util.HashSet;
 import net.buddat.bungeesuite.database.Database;
 import net.buddat.bungeesuite.database.DatabaseDependencyException;
 import net.milkbowl.vault.chat.Chat;
+import net.buddat.bungeesuite.channels.ChannelCommunication;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,8 +32,8 @@ import com.mcdimensions.bungeesuitebukkit.signs.SignHandler;
 import com.mcdimensions.bungeesuitebukkit.utilities.Utilities;
 
 public class BungeeSuiteBukkit extends JavaPlugin {
-	public static final String OUTGOING_PLUGIN_CHANNEL = "BungeeSuite";
-	public static final String INCOMING_PLUGIN_CHANNEL = "BungeeSuiteMC";
+	public static final String OUTGOING_PLUGIN_CHANNEL = ChannelCommunication.SERVER_TO_PROXY_CHANNEL;
+	public static final String INCOMING_PLUGIN_CHANNEL = ChannelCommunication.PROXY_TO_SERVER_CHANNEL;
 	public static final String OUTGOING_BUNGEECORD_CHANNEL = "BungeeCord";
 	
 	public String motd, OnDisableTarget;
